@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +21,7 @@ public class DiscoveryController {
 	@Autowired
 	DiscoveryService discoveryservice;
 
+	@CrossOrigin
 	@RequestMapping(value = "/discovery/realtime/{company}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public String Search(@PathVariable String company) throws IOException, JSONException {
@@ -33,4 +35,16 @@ public class DiscoveryController {
 		return json.toString();
 	}
 
+	@RequestMapping(value = "/discovery/period/{company}/{sDate}/{dDate}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public String PeriodSearch(@PathVariable String company, @PathVariable String sDate, @PathVariable String dDate)
+			throws IOException, JSONException {
+		String name = URLEncoder.encode(company, "UTF-8");
+		System.out.println(name);
+
+		// System.out.println(company);
+		JSONObject json = discoveryservice.PeriodSearch(name, sDate, dDate);
+
+		return json.toString();
+	}
 }
