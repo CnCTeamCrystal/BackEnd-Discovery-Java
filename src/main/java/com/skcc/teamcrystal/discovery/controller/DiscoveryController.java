@@ -19,13 +19,15 @@ public class DiscoveryController {
 	@Autowired
 	DiscoveryService discoveryservice;
 
-	@RequestMapping(value = "/discovery/{company}", method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
-	public JSONObject Search(@PathVariable String company) throws IOException, JSONException {
+	@RequestMapping(value = "/discovery/{company}", method = RequestMethod.GET, 
+			produces={MediaType.APPLICATION_JSON_VALUE})
+	public String Search(@PathVariable String company) throws IOException, JSONException {
 		company="%EC%82%BC%EC%84%B1";
+		System.out.println(company);
 		JSONObject json = discoveryservice.ReadJsonFromURL(company);
 
-		return json;
+
+		return json.toString();
 	}
 
 }
