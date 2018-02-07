@@ -35,6 +35,7 @@ public class DiscoveryController {
 		return json.toString();
 	}
 
+	@CrossOrigin
 	@RequestMapping(value = "/discovery/positive/{company}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public String PositivelyRelevant(@PathVariable String company) throws IOException, JSONException {
@@ -46,6 +47,7 @@ public class DiscoveryController {
 		return json.toString();
 	}
 
+	@CrossOrigin
 	@RequestMapping(value = "/discovery/negative/{company}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public String NegativelyRelevant(@PathVariable String company) throws IOException, JSONException {
