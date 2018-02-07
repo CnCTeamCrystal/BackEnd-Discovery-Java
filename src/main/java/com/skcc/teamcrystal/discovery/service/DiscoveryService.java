@@ -80,17 +80,11 @@ public class DiscoveryService {
 
 	@SuppressWarnings("unused")
 	public JSONObject PositiveKeyword(String company) throws IOException, JSONException {
-		String furl = "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-ko/query?version=2017-11-07&aggregation=nested%28enriched_text.keywords%29.filter%28enriched_text.keywords.text%3A%22";
-		String burl = "%22%29.term%28enriched_text.keywords.text%2Ccount%3A10%29&highlight=true&passages.count=5&query=";
-
-		Date date = new Date();
-		SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(dateF.format(date));
+		String furl = "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-en/query?version=2017-11-07&aggregation=nested%28enriched_title.entities%29.filter%28enriched_title.entities.type%3A%3A%22Company%22%29.term%28enriched_title.entities.text%2Ccount%3A5%29&filter=enriched_text.sentiment.document.score%3E0.5&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query=";
 
 		StringBuilder url_b = new StringBuilder();
 		url_b.append(furl);
 		url_b.append(company);
-		url_b.append(burl);
 		URL url = new URL(url_b.toString());
 
 		URLConnection urlConnection = url.openConnection();
@@ -113,22 +107,25 @@ public class DiscoveryService {
 				is.close();
 			}
 		}
+		// InputStream is = new URL(url_b.toString()).openStream();
+		/*
+		 * System.out.println(4); logger.info(url_b.toString());
+		 * 
+		 * try { BufferedReader rd = new BufferedReader(new InputStreamReader(is,
+		 * Charset.forName("UTF-8"))); String jsonText = readAll(rd); JSONObject json =
+		 * new JSONObject(jsonText); return json; } finally { is.close(); }
+		 */
 		return json;
 	}
 
 	@SuppressWarnings("unused")
 	public JSONObject NegativeKeyword(String company) throws IOException, JSONException {
-		String furl = "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-ko/query?version=2017-11-07&aggregation=nested%28enriched_text.keywords%29.filter%28enriched_text.keywords.text%3A%22";
-		String burl = "%22%29.term%28enriched_text.keywords.text%2Ccount%3A10%29&highlight=true&passages.count=5&query=";
-
-		Date date = new Date();
-		SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(dateF.format(date));
+		String furl = "\r\n"
+				+ "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-en/query?version=2017-11-07&aggregation=nested%28enriched_title.entities%29.filter%28enriched_title.entities.type%3A%3A%22Company%22%29.term%28enriched_title.entities.text%2Ccount%3A5%29&filter=enriched_text.sentiment.document.score%3C-0.5&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query=";
 
 		StringBuilder url_b = new StringBuilder();
 		url_b.append(furl);
 		url_b.append(company);
-		url_b.append(burl);
 		URL url = new URL(url_b.toString());
 
 		URLConnection urlConnection = url.openConnection();
@@ -151,11 +148,19 @@ public class DiscoveryService {
 				is.close();
 			}
 		}
+		// InputStream is = new URL(url_b.toString()).openStream();
+		/*
+		 * System.out.println(4); logger.info(url_b.toString());
+		 * 
+		 * try { BufferedReader rd = new BufferedReader(new InputStreamReader(is,
+		 * Charset.forName("UTF-8"))); String jsonText = readAll(rd); JSONObject json =
+		 * new JSONObject(jsonText); return json; } finally { is.close(); }
+		 */
 		return json;
 	}
-	
+
 	@SuppressWarnings("unused")
-	public JSONObject PeriodSearch(String company,String sDate, String dDate) throws IOException, JSONException {
+	public JSONObject PeriodSearch(String company, String sDate, String dDate) throws IOException, JSONException {
 		String furl = "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-ko/query?version=2017-11-07&filter=crawl_date%3E";
 		String murl1 = "T12%3A00%3A00%2B0900%2Ccrawl_date%3C";
 		String murl2 = "T12%3A00%3A00%2B0900%2C%28text%3A%22";

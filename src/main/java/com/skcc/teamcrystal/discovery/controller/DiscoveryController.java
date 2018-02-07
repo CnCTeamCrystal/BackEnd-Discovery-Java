@@ -35,6 +35,28 @@ public class DiscoveryController {
 		return json.toString();
 	}
 
+	@RequestMapping(value = "/discovery/positive/{company}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public String PositivelyRelevant(@PathVariable String company) throws IOException, JSONException {
+		String name = URLEncoder.encode(company, "UTF-8");
+		System.out.println(name);
+
+		JSONObject json = discoveryservice.PositiveKeyword(name);
+
+		return json.toString();
+	}
+
+	@RequestMapping(value = "/discovery/negative/{company}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public String NegativelyRelevant(@PathVariable String company) throws IOException, JSONException {
+		String name = URLEncoder.encode(company, "UTF-8");
+		System.out.println(name);
+
+		JSONObject json = discoveryservice.NegativeKeyword(name);
+
+		return json.toString();
+	}
+
 	@RequestMapping(value = "/discovery/period/{company}/{sDate}/{dDate}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public String PeriodSearch(@PathVariable String company, @PathVariable String sDate, @PathVariable String dDate)
