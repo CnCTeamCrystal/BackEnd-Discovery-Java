@@ -2,8 +2,6 @@ package com.skcc.teamcrystal.discovery.controller;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mysql.fabric.xmlrpc.base.Data;
 import com.skcc.teamcrystal.discovery.service.DiscoveryService;
 
 @RestController
@@ -23,17 +20,16 @@ public class DiscoveryController {
 	@Autowired
 	DiscoveryService discoveryservice;
 
-	@RequestMapping(value = "/discovery/realtime/{company}", method = RequestMethod.GET, 
-			produces={MediaType.APPLICATION_JSON_VALUE})
+	@RequestMapping(value = "/discovery/realtime/{company}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	public String Search(@PathVariable String company) throws IOException, JSONException {
 		String name = URLEncoder.encode(company, "UTF-8");
 		System.out.println(name);
 
-		company="%EC%82%BC%EC%84%B1";
-//		System.out.println(company);
+		company = "%EC%82%BC%EC%84%B1";
+		// System.out.println(company);
 		JSONObject json = discoveryservice.RealTimeKeyword(name);
 
-		
 		return json.toString();
 	}
 
