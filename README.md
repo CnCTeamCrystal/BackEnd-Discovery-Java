@@ -25,7 +25,7 @@ java -jar 파일명.jar
 ### URI
 HTTP|URI
 ---|---
-GET|/user/add/
+GET|/discovery/realtime
 
 ### Parameter
 Parameter|Parameter명|Data Type
