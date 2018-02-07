@@ -9,5 +9,4 @@ public class EnvConfig {
 	public static final String ENV_DESC = "Team Crystal";
 	public static final String USER_NAME = "fa6ca473-2c4a-4222-828a-066ae905c664";
 	public static final String USER_PASSWORD = "UNLBvDbEbE1S";
-
 }
