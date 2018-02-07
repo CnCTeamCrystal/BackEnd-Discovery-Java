@@ -158,8 +158,9 @@ public class DiscoveryService {
 	public JSONObject PeriodSearch(String company,String sDate, String dDate) throws IOException, JSONException {
 		String furl = "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-ko/query?version=2017-11-07&filter=crawl_date%3E";
 		String murl1 = "T12%3A00%3A00%2B0900%2Ccrawl_date%3C";
-		String murl2 = "T12%3A00%3A00%2B0900%2Ctext%3A%22";
-		String burl = "%22%29.term%28enriched_text.keywords.text%2Ccount%3A10%29&highlight=true&passages.count=5&query=";
+		String murl2 = "T12%3A00%3A00%2B0900%2C%28text%3A%22";
+		String murl3 = "%22%2Cenriched_text.keywords.text%3A%22";
+		String burl = "%22%29&deduplicate=false&highlight=true&passages=true&passages.count=5&query=";
 
 		Date date = new Date();
 		SimpleDateFormat dateF = new SimpleDateFormat("yyyy-MM-dd");
@@ -171,6 +172,8 @@ public class DiscoveryService {
 		url_b.append(murl1);
 		url_b.append(dDate);
 		url_b.append(murl2);
+		url_b.append(company);
+		url_b.append(murl3);
 		url_b.append(company);
 		url_b.append(burl);
 		URL url = new URL(url_b.toString());
