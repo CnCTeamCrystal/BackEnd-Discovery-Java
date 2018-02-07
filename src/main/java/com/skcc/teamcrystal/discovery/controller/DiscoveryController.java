@@ -1,6 +1,7 @@
 package com.skcc.teamcrystal.discovery.controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,11 +23,13 @@ public class DiscoveryController {
 	@RequestMapping(value = "/discovery/{company}", method = RequestMethod.GET, 
 			produces={MediaType.APPLICATION_JSON_VALUE})
 	public String Search(@PathVariable String company) throws IOException, JSONException {
+		String name = URLEncoder.encode(company, "UTF-8");
+		System.out.println(name);
+
 		company="%EC%82%BC%EC%84%B1";
-		System.out.println(company);
-		JSONObject json = discoveryservice.ReadJsonFromURL(company);
-
-
+//		System.out.println(company);
+		JSONObject json = discoveryservice.ReadJsonFromURL(name);
+		
 		return json.toString();
 	}
 
