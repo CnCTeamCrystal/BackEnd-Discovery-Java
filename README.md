@@ -62,10 +62,32 @@ HTTP|URI
 ---|---
 GET|/discovery/positive/{company}
 
+### Response
+{
+    "keywords": [
+        "SK",
+        "삼성전자",
+        "SK하이닉스",
+        "삼성",
+        "금호타이어"
+    ]
+}
+
 ## Negative
 ### URI
 HTTP|URI
 ---|---
 GET|/discovery/negative/{company}
+
+### Response
+{
+    "keywords": [
+        "SK",
+        "삼성전자",
+        "SK하이닉스",
+        "삼성",
+        "금호타이어"
+    ]
+}
 
 				
