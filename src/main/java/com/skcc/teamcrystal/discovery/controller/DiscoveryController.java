@@ -3,6 +3,7 @@ package com.skcc.teamcrystal.discovery.controller;
 import java.io.IOException;
 import java.net.URLEncoder;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,12 @@ public class DiscoveryController {
 		String name = URLEncoder.encode(company, "UTF-8");
 		System.out.println(name);
 
-		JSONObject json = discoveryservice.PositiveKeyword(name);
+		JSONObject jobj = new JSONObject();
+		JSONArray json = discoveryservice.PositiveKeyword(name);
 
-		return json.toString();
+		jobj.put("keywords", json);
+
+		return jobj.toString();
 	}
 
 	@CrossOrigin
@@ -54,11 +58,15 @@ public class DiscoveryController {
 		String name = URLEncoder.encode(company, "UTF-8");
 		System.out.println(name);
 
-		JSONObject json = discoveryservice.NegativeKeyword(name);
+		JSONObject jobj = new JSONObject();
+		JSONArray json = discoveryservice.NegativeKeyword(name);
 
-		return json.toString();
+		jobj.put("keywords", json);
+
+		return jobj.toString();
 	}
 
+	@CrossOrigin
 	@RequestMapping(value = "/discovery/period/{company}/{sDate}/{dDate}", method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public String PeriodSearch(@PathVariable String company, @PathVariable String sDate, @PathVariable String dDate)

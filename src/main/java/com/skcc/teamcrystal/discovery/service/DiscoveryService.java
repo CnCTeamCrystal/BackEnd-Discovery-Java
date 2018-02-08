@@ -9,9 +9,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -79,8 +81,8 @@ public class DiscoveryService {
 	}
 
 	@SuppressWarnings("unused")
-	public JSONObject PositiveKeyword(String company) throws IOException, JSONException {
-		String furl = "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-en/query?version=2017-11-07&aggregation=nested%28enriched_title.entities%29.filter%28enriched_title.entities.type%3A%3A%22Company%22%29.term%28enriched_title.entities.text%2Ccount%3A5%29&filter=enriched_text.sentiment.document.score%3E0.5&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query=";
+	public JSONArray PositiveKeyword(String company) throws IOException, JSONException {
+		String furl = "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-ko/query?version=2017-11-07&aggregation=nested%28enriched_title.entities%29.filter%28enriched_title.entities.type%3A%3A%22Company%22%29.term%28enriched_title.entities.text%2Ccount%3A5%29&filter=enriched_text.sentiment.document.score%3E0.5&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query=";
 
 		StringBuilder url_b = new StringBuilder();
 		url_b.append(furl);
@@ -90,6 +92,7 @@ public class DiscoveryService {
 		URLConnection urlConnection = url.openConnection();
 		String auth = "fa6ca473-2c4a-4222-828a-066ae905c664:UNLBvDbEbE1S";
 
+		JSONArray jarray = new JSONArray();
 		if (auth != null) {
 			byte[] authEncBytes = Base64.encodeBase64(auth.getBytes());
 			String authStringEnc = new String(authEncBytes);
@@ -98,30 +101,24 @@ public class DiscoveryService {
 			InputStream is = urlConnection.getInputStream();
 			logger.info(url_b.toString());
 
-			try {
-				BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-				String jsonText = readAll(rd);
-				json = new JSONObject(jsonText);
-				return json;
-			} finally {
-				is.close();
-			}
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+			String jsonText = readAll(rd);
+			json = new JSONObject(jsonText);
+
+			ArrayList<String> key_list = new ArrayList<String>();
+			key_list = Parser_Sentiment(json);
+
+			jarray = new JSONArray(key_list);
+
+			return jarray;
 		}
-		// InputStream is = new URL(url_b.toString()).openStream();
-		/*
-		 * System.out.println(4); logger.info(url_b.toString());
-		 * 
-		 * try { BufferedReader rd = new BufferedReader(new InputStreamReader(is,
-		 * Charset.forName("UTF-8"))); String jsonText = readAll(rd); JSONObject json =
-		 * new JSONObject(jsonText); return json; } finally { is.close(); }
-		 */
-		return json;
+		return jarray;
 	}
 
 	@SuppressWarnings("unused")
-	public JSONObject NegativeKeyword(String company) throws IOException, JSONException {
+	public JSONArray NegativeKeyword(String company) throws IOException, JSONException {
 		String furl = "\r\n"
-				+ "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-en/query?version=2017-11-07&aggregation=nested%28enriched_title.entities%29.filter%28enriched_title.entities.type%3A%3A%22Company%22%29.term%28enriched_title.entities.text%2Ccount%3A5%29&filter=enriched_text.sentiment.document.score%3C-0.5&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query=";
+				+ "https://gateway.watsonplatform.net/discovery/api/v1/environments/system/collections/news-ko/query?version=2017-11-07&aggregation=nested%28enriched_title.entities%29.filter%28enriched_title.entities.type%3A%3A%22Company%22%29.term%28enriched_title.entities.text%2Ccount%3A5%29&filter=enriched_text.sentiment.document.score%3C-0.5&deduplicate=false&highlight=true&passages=true&passages.count=5&natural_language_query=";
 
 		StringBuilder url_b = new StringBuilder();
 		url_b.append(furl);
@@ -131,6 +128,7 @@ public class DiscoveryService {
 		URLConnection urlConnection = url.openConnection();
 		String auth = "fa6ca473-2c4a-4222-828a-066ae905c664:UNLBvDbEbE1S";
 
+		JSONArray jarray = new JSONArray();
 		if (auth != null) {
 			byte[] authEncBytes = Base64.encodeBase64(auth.getBytes());
 			String authStringEnc = new String(authEncBytes);
@@ -139,24 +137,18 @@ public class DiscoveryService {
 			InputStream is = urlConnection.getInputStream();
 			logger.info(url_b.toString());
 
-			try {
-				BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-				String jsonText = readAll(rd);
-				json = new JSONObject(jsonText);
-				return json;
-			} finally {
-				is.close();
-			}
+			BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
+			String jsonText = readAll(rd);
+			json = new JSONObject(jsonText);
+
+			ArrayList<String> key_list = new ArrayList<String>();
+			key_list = Parser_Sentiment(json);
+
+			jarray = new JSONArray(key_list);
+
+			return jarray;
 		}
-		// InputStream is = new URL(url_b.toString()).openStream();
-		/*
-		 * System.out.println(4); logger.info(url_b.toString());
-		 * 
-		 * try { BufferedReader rd = new BufferedReader(new InputStreamReader(is,
-		 * Charset.forName("UTF-8"))); String jsonText = readAll(rd); JSONObject json =
-		 * new JSONObject(jsonText); return json; } finally { is.close(); }
-		 */
-		return json;
+		return jarray;
 	}
 
 	@SuppressWarnings("unused")
@@ -204,5 +196,51 @@ public class DiscoveryService {
 			}
 		}
 		return json;
+	}
+
+	public ArrayList<String> Parser_Sentiment(JSONObject obj) throws JSONException {
+		JSONArray jobj = new JSONArray();
+		jobj = obj.getJSONArray("aggregations");
+
+		JSONObject jobj2 = new JSONObject();
+		jobj2 = (jobj.getJSONObject(0));
+
+		System.out.println(jobj2);
+
+		JSONArray jobj3 = new JSONArray();
+		jobj3 = jobj2.getJSONArray("aggregations");
+
+		System.out.println(jobj3);
+
+		JSONObject jobj4 = new JSONObject();
+		jobj4 = (jobj3.getJSONObject(0));
+
+		JSONArray jobj5 = new JSONArray();
+		jobj5 = jobj4.getJSONArray("aggregations");
+
+		System.out.println(jobj5);
+
+		JSONObject jobj6 = new JSONObject();
+		jobj6 = (jobj5.getJSONObject(0));
+
+		System.out.println(jobj6);
+
+		JSONArray jobj7 = new JSONArray();
+		jobj7 = jobj6.getJSONArray("results");
+
+		System.out.println(jobj7);
+		/*
+		 * JSONArray jobj3 = new JSONArray(); jobj3 = jobj2.getJSONArray("results");
+		 */
+
+		ArrayList<String> keyword = new ArrayList<>();
+
+		for (int i = 0; i < jobj7.length(); i++) {
+			keyword.add(jobj7.getJSONObject(i).getString("key"));
+		}
+
+		System.out.println(keyword);
+
+		return keyword;
 	}
 }
