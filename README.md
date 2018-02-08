@@ -25,7 +25,7 @@ java -jar 파일명.jar
 ### URI
 HTTP|URI
 ---|---
-GET|/discovery/realtime
+GET|/discovery/realtime/{company}
 
 ### Parameter
 Parameter|Parameter명|Data Type
@@ -48,4 +48,24 @@ company|company name|String
 		}
 		..
 }
+
+
+## Period
+### URI
+HTTP|URI
+---|---
+GET|/discovery/period/{company}/{sDate}/{dDate}
+
+## Positive
+### URI
+HTTP|URI
+---|---
+GET|/discovery/positive/{company}
+
+## Negative
+### URI
+HTTP|URI
+---|---
+GET|/discovery/negative/{company}
+
 				
