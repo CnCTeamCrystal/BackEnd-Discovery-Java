@@ -57,7 +57,7 @@ public class DiscoveryService {
 		URL url = new URL(url_b.toString());
 
 		URLConnection urlConnection = url.openConnection();
-		String auth = "fa6ca473-2c4a-4222-828a-066ae905c664:UNLBvDbEbE1S";
+		String auth = "360d8c17-afed-46f3-9899-c9dfad06f309:2D13wfeTYVUK";
 
 		if (auth != null) {
 			byte[] authEncBytes = Base64.encodeBase64(auth.getBytes());
@@ -90,7 +90,7 @@ public class DiscoveryService {
 		URL url = new URL(url_b.toString());
 
 		URLConnection urlConnection = url.openConnection();
-		String auth = "fa6ca473-2c4a-4222-828a-066ae905c664:UNLBvDbEbE1S";
+		String auth = "360d8c17-afed-46f3-9899-c9dfad06f309:2D13wfeTYVUK";
 
 		JSONArray jarray = new JSONArray();
 		if (auth != null) {
@@ -126,7 +126,7 @@ public class DiscoveryService {
 		URL url = new URL(url_b.toString());
 
 		URLConnection urlConnection = url.openConnection();
-		String auth = "fa6ca473-2c4a-4222-828a-066ae905c664:UNLBvDbEbE1S";
+		String auth = "360d8c17-afed-46f3-9899-c9dfad06f309:2D13wfeTYVUK";
 
 		JSONArray jarray = new JSONArray();
 		if (auth != null) {
@@ -176,7 +176,7 @@ public class DiscoveryService {
 		URL url = new URL(url_b.toString());
 
 		URLConnection urlConnection = url.openConnection();
-		String auth = "fa6ca473-2c4a-4222-828a-066ae905c664:UNLBvDbEbE1S";
+		String auth = "360d8c17-afed-46f3-9899-c9dfad06f309:2D13wfeTYVUK";
 
 		if (auth != null) {
 			byte[] authEncBytes = Base64.encodeBase64(auth.getBytes());
